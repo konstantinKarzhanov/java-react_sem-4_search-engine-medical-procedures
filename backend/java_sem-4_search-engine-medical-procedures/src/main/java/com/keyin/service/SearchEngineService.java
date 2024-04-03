@@ -27,10 +27,6 @@ public class SearchEngineService {
         this.accountService = accountService;
     }
 
-    public List<Procedure> fetchProcedures() {
-        return this.procedureService.findAllProcedures();
-    }
-
     public List<Procedure> processQuery(String query) {
         Keyword keyword = this.keywordService.createKeyword(query);
 
