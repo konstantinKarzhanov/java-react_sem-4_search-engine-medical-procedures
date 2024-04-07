@@ -1,12 +1,15 @@
 package com.keyin.controller;
 
 import com.keyin.dto.AccountDTO;
+import com.keyin.dto.ResponseDTO;
 import com.keyin.exception.AccountNameExistsException;
 import com.keyin.model.Account;
 import com.keyin.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,9 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/account")
@@ -47,8 +47,14 @@ public class AccountController {
     }
 
     @PostMapping("/registration")
-    public Account postAccountRegistration(@RequestBody AccountDTO accountDTO) throws AccountNameExistsException {
-        return this.accountService.createAccount(accountDTO);
+    public ResponseEntity<?> postAccountRegistration(@RequestBody AccountDTO accountDTO) {
+        try {
+            Account account = this.accountService.createAccount(accountDTO);
+
+            return new ResponseEntity<>(account, HttpStatus.CREATED);
+        } catch (AccountNameExistsException e) {
+            return new ResponseEntity<>(new ResponseDTO(accountDTO.name(), e.getMessage()), HttpStatus.CONFLICT);
+        }
     }
 
     @GetMapping("/login")
@@ -57,7 +63,7 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> postAccountLogin(
+    public ResponseEntity<ResponseDTO> postAccountLogin(
             @RequestBody AccountDTO accountDTO,
             HttpServletRequest httpServletRequest,
             HttpServletResponse httpServletResponse
@@ -74,9 +80,8 @@ public class AccountController {
 
         this.securityContextRepository.saveContext(context, httpServletRequest, httpServletResponse);
 
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("message", "Logged in successfully");
-
-        return ResponseEntity.ok(responseBody);
+        return ResponseEntity.ok(
+                new ResponseDTO(accountDTO.name(), "Logged in successfully")
+        );
     }
 }
