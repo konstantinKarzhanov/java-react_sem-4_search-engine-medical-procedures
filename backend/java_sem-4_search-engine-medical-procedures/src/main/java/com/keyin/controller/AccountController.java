@@ -7,8 +7,8 @@ import com.keyin.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -16,6 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/account")
@@ -54,22 +57,26 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public void postAccountLogin(@RequestBody AccountDTO accountDTO, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<Map<String, String>> postAccountLogin(
+            @RequestBody AccountDTO accountDTO,
+            HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse
+    ) {
         UsernamePasswordAuthenticationToken token =
                 UsernamePasswordAuthenticationToken.unauthenticated(accountDTO.name(), accountDTO.password());
 
-        try {
-            Authentication authentication = this.authenticationManager.authenticate(token);
+        Authentication authentication = this.authenticationManager.authenticate(token);
 
-            SecurityContext context = SecurityContextHolder.createEmptyContext();
-            context.setAuthentication(authentication);
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
 
-            SecurityContextHolder.setContext(context);
-            this.securityContextRepository.saveContext(context, httpServletRequest, httpServletResponse);
+        SecurityContextHolder.setContext(context);
 
-        } catch (BadCredentialsException e) {
-            // ResponseEntity will be added later
-            e.printStackTrace();
-        }
+        this.securityContextRepository.saveContext(context, httpServletRequest, httpServletResponse);
+
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("message", "Logged in successfully");
+
+        return ResponseEntity.ok(responseBody);
     }
 }
