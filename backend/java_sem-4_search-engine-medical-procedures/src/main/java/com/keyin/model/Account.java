@@ -2,6 +2,7 @@ package com.keyin.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity(name = "account")
@@ -24,6 +25,12 @@ public class Account {
     )
     private String password;
 
+    @Column(
+            name = "date_created",
+            nullable = false
+    )
+    private LocalDateTime dateCreated;
+
     @OneToMany(mappedBy = "account")
     private List<AccountKeyword> accountKeywordList;
 
@@ -32,6 +39,7 @@ public class Account {
     public Account(String name, String password) {
         this.name = name;
         this.password = password;
+        this.dateCreated = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -56,5 +64,13 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }
