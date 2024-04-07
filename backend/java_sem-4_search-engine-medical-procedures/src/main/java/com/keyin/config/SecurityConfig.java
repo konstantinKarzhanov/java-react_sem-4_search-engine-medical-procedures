@@ -1,6 +1,7 @@
 package com.keyin.config;
 
 import com.keyin.service.JpaUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,15 +14,22 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     private final UserDetailsService userDetailsService;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
 
-    public SecurityConfig(JpaUserDetailsService jpaUserDetailsService) {
+    @Autowired
+    public SecurityConfig(
+            JpaUserDetailsService jpaUserDetailsService,
+            CustomAuthenticationEntryPoint customAuthenticationEntryPoint
+    ) {
         this.userDetailsService = jpaUserDetailsService;
+        this.authenticationEntryPoint = customAuthenticationEntryPoint;
     }
 
     @Bean
@@ -39,6 +47,9 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .securityContext((securityContext) -> securityContext
                         .requireExplicitSave(true)
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(this.authenticationEntryPoint)
                 );
 
         return http.build();
