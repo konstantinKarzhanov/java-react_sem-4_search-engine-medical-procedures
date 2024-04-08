@@ -16,6 +16,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -41,7 +42,11 @@ public class SecurityConfig {
                         .requestMatchers("/account/login").permitAll()
                         .anyRequest().authenticated()
                 )
-                .logout((logout) -> logout.logoutUrl("/account/logout"))
+                .logout((logout) -> logout
+                        .logoutUrl("/account/logout")
+//                        .logoutSuccessUrl("/")
+                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .userDetailsService(this.userDetailsService)
                 .httpBasic(Customizer.withDefaults())

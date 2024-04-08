@@ -35,7 +35,7 @@ public class AccountService {
 
     public Account createAccount(AccountDTO accountDTO) throws AccountNameExistsException {
         if (checkDuplicateAccountByName(accountDTO.name()))
-            throw new AccountNameExistsException("Account with the name \"" + accountDTO.name() + "\" already exist. Try another name.");
+            throw new AccountNameExistsException("Account already exist. Try another name");
 
         return this.accountRepository.save(
                 new Account(
