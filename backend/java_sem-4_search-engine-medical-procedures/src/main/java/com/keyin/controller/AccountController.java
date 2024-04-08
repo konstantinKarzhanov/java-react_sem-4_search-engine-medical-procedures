@@ -19,6 +19,8 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -36,8 +38,8 @@ public class AccountController {
     }
 
     @GetMapping
-    public String getAccount() {
-        return "Hello Account Page";
+    public ResponseEntity<ResponseDTO> getAccount(Principal principal) {
+        return ResponseEntity.ok(new ResponseDTO(principal.getName(), "Success"));
     }
 
     @GetMapping("/registration")
