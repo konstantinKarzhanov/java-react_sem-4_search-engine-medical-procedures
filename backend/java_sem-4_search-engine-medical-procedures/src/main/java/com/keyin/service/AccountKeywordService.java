@@ -6,8 +6,6 @@ import com.keyin.model.Keyword;
 import com.keyin.repository.AccountKeywordRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 @Service
 public class AccountKeywordService {
     private final AccountKeywordRepository accountKeywordRepository;
@@ -17,6 +15,6 @@ public class AccountKeywordService {
     }
 
     public AccountKeyword createAccountKeywordAssociation(Account account, Keyword keyword) {
-        return this.accountKeywordRepository.save(new AccountKeyword(account, keyword, LocalDateTime.now()));
+        return this.accountKeywordRepository.save(new AccountKeyword(account, keyword));
     }
 }
