@@ -39,9 +39,25 @@ public class AccountKeyword {
 
     public AccountKeyword() {}
 
-    public AccountKeyword(Account account, Keyword keyword, LocalDateTime dateTime) {
+    public AccountKeyword(Account account, Keyword keyword) {
         this.account = account;
         this.keyword = keyword;
-        this.dateTime = dateTime;
+        this.dateTime = LocalDateTime.now();
+    }
+
+    public Account getAccount() {
+        return this.account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Keyword getKeyword() {
+        return this.keyword;
+    }
+
+    public void setKeyword(Keyword keyword) {
+        this.keyword = keyword;
     }
 }
