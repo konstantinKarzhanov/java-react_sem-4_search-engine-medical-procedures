@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 
 import AccountComponent from "../components/AccountComponent.jsx";

@@ -1,10 +1,10 @@
-const AccountComponent = ({ data }) => {
+const ProcedureComponent = ({ data }) => {
     return (
-        <h1 className="fw--600">
+        <div>
             {JSON.stringify(data) ||
                 "no content to display yet, check the console"}
-        </h1>
+        </div>
     );
 };
 
-export default AccountComponent;
+export default ProcedureComponent;
