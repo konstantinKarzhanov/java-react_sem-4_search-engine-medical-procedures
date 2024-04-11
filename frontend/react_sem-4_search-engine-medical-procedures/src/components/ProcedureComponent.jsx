@@ -1,9 +1,9 @@
 const ProcedureComponent = ({ data }) => {
     return (
-        <div>
+        <h1 className="fw--600">
             {JSON.stringify(data) ||
                 "no content to display yet, check the console"}
-        </div>
+        </h1>
     );
 };
 
