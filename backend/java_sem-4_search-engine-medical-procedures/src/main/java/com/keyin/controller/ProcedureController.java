@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/procedure")
 public class ProcedureController {
