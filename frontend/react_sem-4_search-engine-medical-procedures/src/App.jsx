@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage.jsx";
 import AccountPage from "./pages/AccountPage.jsx";
 import RegistrationPage from "./pages/RegistrationPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import ProcedurePage from "./pages/ProcedurePage.jsx";
 
 import "./App.css";
 
@@ -16,6 +17,7 @@ const App = () => {
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="login" element={<LoginPage />} />
                 </Route>
+                <Route path="/procedure" element={<ProcedurePage />} />
             </Routes>
         </div>
     );
