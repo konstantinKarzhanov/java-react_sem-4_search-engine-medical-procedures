@@ -5,6 +5,7 @@ import AccountPage from "./pages/AccountPage.jsx";
 import RegistrationPage from "./pages/RegistrationPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import ProcedurePage from "./pages/ProcedurePage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 import "./App.css";
 
@@ -18,6 +19,7 @@ const App = () => {
                     <Route path="login" element={<LoginPage />} />
                 </Route>
                 <Route path="/procedure" element={<ProcedurePage />} />
+                <Route path="*" element={<NotFoundPage />}></Route>
             </Routes>
         </div>
     );
