@@ -8,6 +8,7 @@ import ProcedurePage from "./pages/ProcedurePage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 import NavigationComponent from "./components/NavigationComponent.jsx";
+import LogoutComponent from "./components/LogoutComponent.jsx";
 
 import "./App.css";
 
@@ -20,9 +21,10 @@ const App = () => {
                 <Route path="/account" element={<AccountPage />}>
                     <Route path="registration" element={<RegistrationPage />} />
                     <Route path="login" element={<LoginPage />} />
+                    <Route path="logout" element={<LogoutComponent />} />
                 </Route>
                 <Route path="/procedure" element={<ProcedurePage />} />
-                <Route path="*" element={<NotFoundPage />}></Route>
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </div>
     );
