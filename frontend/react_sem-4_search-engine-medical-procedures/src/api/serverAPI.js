@@ -31,4 +31,14 @@ const submitFormData = (url, dataObj) => {
     fetchJSONData(url, options);
 };
 
-export { getData, submitFormData };
+const sendLogoutRequest = async (url) => {
+    try {
+        const request = await fetch(url, { method: "post" });
+
+        console.log(request.status);
+    } catch ({ name, message }) {
+        console.error(`${name}: ${message}`);
+    }
+};
+
+export { getData, submitFormData, sendLogoutRequest };
