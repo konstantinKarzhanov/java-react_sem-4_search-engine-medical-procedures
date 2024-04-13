@@ -1,27 +1,20 @@
-import { useState, useEffect } from "react";
-import { useLocation, Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
+
+import MainContext from "../context/MainContext.jsx";
 
 import AccountComponent from "../components/AccountComponent.jsx";
 
-import { getData } from "../api/serverAPI.js";
-import { baseURI } from "../config/defaults.js";
-
 const AccountPage = () => {
-    const { pathname } = useLocation();
-    const [data, setData] = useState();
-
-    const url = baseURI + pathname;
-
-    useEffect(() => {
-        (async () => {
-            await getData(url);
-        })();
-    }, []);
+    const { isAuthenticated, userData } = useContext(MainContext);
 
     return (
         <>
-            <AccountComponent data={data} />
-            <Outlet />
+            {isAuthenticated ? (
+                <AccountComponent userData={userData} />
+            ) : (
+                <Navigate to="/" replace />
+            )}
         </>
     );
 };
