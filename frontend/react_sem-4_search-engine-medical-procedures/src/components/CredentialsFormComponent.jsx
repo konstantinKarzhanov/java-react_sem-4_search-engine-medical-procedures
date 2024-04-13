@@ -1,4 +1,4 @@
-const FormComponent = ({ onSubmit, title, action }) => {
+const CredentialsFormComponent = ({ onSubmit, title, action }) => {
     return (
         <>
             <h2>{title}</h2>
@@ -22,4 +22,4 @@ const FormComponent = ({ onSubmit, title, action }) => {
     );
 };
 
-export default FormComponent;
+export default CredentialsFormComponent;

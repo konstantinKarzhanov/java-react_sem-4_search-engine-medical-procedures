@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import MainContext from "../context/MainContext.jsx";
 
-import FormComponent from "./FormComponent";
+import CredentialsFormComponent from "./CredentialsFormComponent";
 
 import {
     baseURI,
@@ -52,7 +52,11 @@ const AuthenticationComponent = ({ pathname, title }) => {
     };
 
     return (
-        <FormComponent onSubmit={handleOnSubmit} title={title} action={url} />
+        <CredentialsFormComponent
+            onSubmit={handleOnSubmit}
+            title={title}
+            action={url}
+        />
     );
 };
 
