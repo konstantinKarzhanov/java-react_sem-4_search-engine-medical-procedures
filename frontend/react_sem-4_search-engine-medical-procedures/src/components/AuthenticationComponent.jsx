@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import MainContext from "../context/MainContext.jsx";
 
-import FormComponent from "./FormComponent";
+import CredentialsFormComponent from "./CredentialsFormComponent";
 
 import {
     baseURI,
@@ -14,7 +14,7 @@ import {
 
 import { submitFormData } from "../api/serverAPI.js";
 
-const AuthenticationComponent = ({ pathname, title }) => {
+const AuthenticationComponent = ({ pathname }) => {
     const { setIsAuthenticated } = useContext(MainContext);
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const AuthenticationComponent = ({ pathname, title }) => {
         }
     };
 
-    const handleOnSubmit = (event) => {
+    const handleOnSubmit = async (event) => {
         event.preventDefault();
 
         const { username, password } = event.target;
@@ -42,7 +42,7 @@ const AuthenticationComponent = ({ pathname, title }) => {
             password: password.value,
         };
 
-        const statusCode = submitFormData(url, formDataObj);
+        const statusCode = await submitFormData(url, formDataObj);
 
         if (statusCode == 200) {
             pathname === loginPath && setIsAuthenticated(true);
@@ -51,9 +51,7 @@ const AuthenticationComponent = ({ pathname, title }) => {
         }
     };
 
-    return (
-        <FormComponent onSubmit={handleOnSubmit} title={title} action={url} />
-    );
+    return <CredentialsFormComponent onSubmit={handleOnSubmit} action={url} />;
 };
 
 export default AuthenticationComponent;

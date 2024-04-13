@@ -4,9 +4,8 @@ import AuthenticationComponent from "../components/AuthenticationComponent.jsx";
 
 const LoginPage = () => {
     const { pathname } = useLocation();
-    const title = "login";
 
-    return <AuthenticationComponent pathname={pathname} title={title} />;
+    return <AuthenticationComponent pathname={pathname} />;
 };
 
 export default LoginPage;
