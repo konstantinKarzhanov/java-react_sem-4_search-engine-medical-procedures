@@ -20,6 +20,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
@@ -38,8 +39,10 @@ public class AccountController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseDTO> getAccount(Principal principal) {
-        return ResponseEntity.ok(new ResponseDTO(principal.getName(), "Success"));
+    public ResponseEntity<Account> getAccount(Principal principal) {
+        Optional<Account> accountOptional = this.accountService.findAccountByName(principal.getName());
+
+        return ResponseEntity.of(accountOptional);
     }
 
     @GetMapping("/registration")
