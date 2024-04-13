@@ -14,7 +14,7 @@ import {
 
 import { submitFormData } from "../api/serverAPI.js";
 
-const AuthenticationComponent = ({ pathname, title }) => {
+const AuthenticationComponent = ({ pathname }) => {
     const { setIsAuthenticated } = useContext(MainContext);
     const navigate = useNavigate();
 
@@ -51,13 +51,7 @@ const AuthenticationComponent = ({ pathname, title }) => {
         }
     };
 
-    return (
-        <CredentialsFormComponent
-            onSubmit={handleOnSubmit}
-            title={title}
-            action={url}
-        />
-    );
+    return <CredentialsFormComponent onSubmit={handleOnSubmit} action={url} />;
 };
 
 export default AuthenticationComponent;
