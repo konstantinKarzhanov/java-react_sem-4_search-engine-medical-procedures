@@ -15,7 +15,7 @@ import {
 import { submitFormData } from "../api/serverAPI.js";
 
 const AuthenticationComponent = ({ pathname }) => {
-    const { setIsAuthenticated } = useContext(MainContext);
+    const { setIsAuthenticated, setUserData } = useContext(MainContext);
     const navigate = useNavigate();
 
     const url = baseURI + pathname;
@@ -42,10 +42,16 @@ const AuthenticationComponent = ({ pathname }) => {
             password: password.value,
         };
 
-        const statusCode = await submitFormData(url, formDataObj);
+        const {
+            body: { name },
+            statusCode,
+        } = await submitFormData(url, formDataObj);
 
-        if (statusCode == 200) {
-            pathname === loginPath && setIsAuthenticated(true);
+        if (statusCode == 200 || statusCode == 201) {
+            if (pathname === loginPath) {
+                setIsAuthenticated(true);
+                setUserData(name);
+            }
 
             handleRedirect(pathname);
         }

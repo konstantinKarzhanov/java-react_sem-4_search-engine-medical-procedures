@@ -19,6 +19,7 @@ export {
     baseURI,
     homePath,
     procedurePath,
+    accountPath,
     registrationPath,
     loginPath,
     logoutPath,

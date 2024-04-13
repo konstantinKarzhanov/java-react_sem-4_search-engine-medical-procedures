@@ -4,7 +4,11 @@ const fetchJSONData = async (url, options) => {
         const response = await request.json();
 
         console.log(response);
-        return response;
+
+        return {
+            body: response,
+            statusCode: request.status,
+        };
     } catch ({ name, message }) {
         console.error(`${name}: ${message}`);
     }
