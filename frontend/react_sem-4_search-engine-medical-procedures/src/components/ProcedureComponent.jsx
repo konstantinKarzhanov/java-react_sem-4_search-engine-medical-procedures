@@ -28,9 +28,9 @@ const ProcedureComponent = () => {
     };
 
     const getProcedures = async (url) => {
-        const data = await getData(url);
+        const { body } = await getData(url);
 
-        setData(data);
+        setData(body);
     };
 
     return (
