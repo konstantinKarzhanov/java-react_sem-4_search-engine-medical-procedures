@@ -19,8 +19,8 @@ const NavigationComponent = () => {
 
     const url = baseURI + logoutPath;
 
-    const handleLogout = () => {
-        const statusCode = sendLogoutRequest(url);
+    const handleLogout = async () => {
+        const statusCode = await sendLogoutRequest(url);
 
         if (statusCode == 200) {
             setIsAuthenticated(false);

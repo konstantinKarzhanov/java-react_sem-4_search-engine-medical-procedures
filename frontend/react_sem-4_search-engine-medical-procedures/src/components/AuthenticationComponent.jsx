@@ -32,7 +32,7 @@ const AuthenticationComponent = ({ pathname }) => {
         }
     };
 
-    const handleOnSubmit = (event) => {
+    const handleOnSubmit = async (event) => {
         event.preventDefault();
 
         const { username, password } = event.target;
@@ -42,7 +42,7 @@ const AuthenticationComponent = ({ pathname }) => {
             password: password.value,
         };
 
-        const statusCode = submitFormData(url, formDataObj);
+        const statusCode = await submitFormData(url, formDataObj);
 
         if (statusCode == 200) {
             pathname === loginPath && setIsAuthenticated(true);

@@ -13,7 +13,9 @@ const AccountPage = () => {
     const url = baseURI + pathname;
 
     useEffect(() => {
-        getData(url);
+        (async () => {
+            await getData(url);
+        })();
     }, []);
 
     return (

@@ -4,21 +4,25 @@ const fetchJSONData = async (url, options) => {
         const response = await request.json();
 
         console.log(response);
+        return response;
     } catch ({ name, message }) {
         console.error(`${name}: ${message}`);
     }
 };
 
-const getData = (url) => {
+const getData = async (url) => {
+    console.log("debug: getData");
+
     const options = {
         method: "get",
         credentials: "include",
     };
 
-    fetchJSONData(url, options);
+    return await fetchJSONData(url, options);
 };
 
-const submitFormData = (url, dataObj) => {
+const submitFormData = async (url, dataObj) => {
+    console.log("debug: submitFormData");
     const options = {
         method: "post",
         headers: {
@@ -28,14 +32,16 @@ const submitFormData = (url, dataObj) => {
         body: JSON.stringify(dataObj),
     };
 
-    fetchJSONData(url, options);
+    return await fetchJSONData(url, options);
 };
 
 const sendLogoutRequest = async (url) => {
+    console.log("debug: sendLogoutRequest");
+
     try {
         const request = await fetch(url, { method: "post" });
 
-        console.log(request.status);
+        return request.status;
     } catch ({ name, message }) {
         console.error(`${name}: ${message}`);
     }
