@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-const LinkListComponent = ({ linkMap }) => {
+const LinkListComponent = ({ onClick, linkMap }) => {
     const renderList = (map) => {
         return (
-            <ul>
+            <ul onClick={onClick}>
                 {[...map.entries()].map(([name, link], index) => (
                     <li key={index}>
                         <Link to={link}>{name}</Link>
