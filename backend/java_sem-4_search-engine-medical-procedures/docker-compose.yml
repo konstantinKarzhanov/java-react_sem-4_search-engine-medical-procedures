@@ -1,0 +1,8 @@
+version: '3'
+services:
+  myapp-main:
+    image: konstantinkarzhanov/search-engine-medical-procedures:0.0.1
+    ports:
+      - 8080:8080
+    environment:
+      - spring.datasource.url=jdbc:postgresql://host.docker.internal:5433/searchEngineMedicalProcedures
