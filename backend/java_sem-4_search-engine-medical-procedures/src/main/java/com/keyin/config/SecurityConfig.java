@@ -50,8 +50,8 @@ public class SecurityConfig {
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/account/logout")
-//                        .logoutSuccessUrl("/")
                         .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+                        .deleteCookies("JSESSIONID")
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .userDetailsService(this.userDetailsService)
